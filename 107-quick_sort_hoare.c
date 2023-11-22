@@ -80,9 +80,8 @@ void quick_ssort(int *array, ssize_t first, ssize_t last, int size)
 void quick_sort_hoare(int *array, size_t size)
 {
 
-	if (!array || size < 2)	{
-
+	if (!array || size < 2)
+	{
 		return;
-
 	}	quick_ssort(array, 0, size - 1, size);
 }
