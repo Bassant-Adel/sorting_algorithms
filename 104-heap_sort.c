@@ -10,33 +10,40 @@
 
 void check_tree(int *array, size_t size_init, size_t size, size_t i)
 {
-	int nx, bx1, bx2;
-	size_t a1, a2;
+	int n, b1, b2;
 
-	a1 = i * 2 + 1;
-	a2 = a1 + 1;
-	bx1 = array[a1];
-	bx2 = array[a2];
+	size_t ar1, ar2;
 
-	if (((a1 < size) && (a2 < size) && (bx1 >= bx2 && bx1 > array[i]))
-		|| ((a1 == size - 1) && bx1 > array[i]))
+	ar1 = i * 2 + 1;
+
+	ar2 = ar1 + 1;
+
+	b1 = array[ar1];
+
+	b2 = array[ar2];
+
+	if (((ar1 < size) && (ar2 < size) && (b1 >= b2 && b1 > array[i]))
+		|| ((ar1 == size - 1) && b1 > array[i]))
 	{
-		nx = array[i];
-		array[i] = bx1;
-		array[a1] = nx;
+		n = array[i];
+		array[i] = b1;
+		array[ar1] = n;
 		print_array(array, size_init);
 	}
-	else if ((a1 < size) && (a2 < size) && (bx2 > bx1 && bx2 > array[i]))
+
+	else if ((ar1 < size) && (ar2 < size) && (b2 > b1 && b2 > array[i]))
 	{
-		nx = array[i];
-		array[i] = bx2;
-		array[a2] = nx;
+		n = array[i];
+		array[i] = b2;
+		array[ar2] = n;
 		print_array(array, size_init);
 	}
-	if (a1 < size - 1)
-		check_tree(array, size_init, size, a1);
-	if (a2 < size - 1)
-		check_tree(array, size_init, size, a2);
+
+	if (ar1 < size - 1)
+		check_tree(array, size_init, size, ar1);
+
+	if (ar2 < size - 1)
+		check_tree(array, size_init, size, ar2);
 }
 
 /**
@@ -47,20 +54,27 @@ void check_tree(int *array, size_t size_init, size_t size, size_t i)
 
 void heap_sort(int *array, size_t size)
 {
-	size_t xx, size_init = size;
-	int xn;
+	size_t x, size_init = size;
+
+	int n;
 
 	if (!array)
-		retur;
-	for (xx = 0; xx < size / 2 ; xx++)
-		check_tree(array, size_init, size, size / 2 - 1 - xx);
-
-	for (xx = 0; xx < size_init - 1; xx++)
 	{
-		xn = array[0];
-		array[0] = array[size - 1 - xx];
-		array[size - 1 - xx] = xn;
+		return;
+	}
+
+	for (x = 0; x < size / 2 ; x++)
+		check_tree(array, size_init, size, size / 2 - 1 - x);
+
+	for (x = 0; x < size_init - 1; x++)
+	{
+		n = array[0];
+
+		array[0] = array[size - 1 - x];
+
+		array[size - 1 - x] = n;
+
 		print_array(array, size_init);
-		check_tree(array, size_init, size - xx - 1, 0);
+		check_tree(array, size_init, size - x - 1, 0);
 	}
 }
